@@ -1,9 +1,6 @@
 package assignments.assignment2;
-<<<<<<< HEAD
 
 import java.util.ArrayList;
-=======
->>>>>>> 36b55a62b2b95bb51b1bbee92e9e492f05e50a61
 
 public class Restaurant {
      // TODO: tambahkan attributes yang diperlukan untuk class ini
