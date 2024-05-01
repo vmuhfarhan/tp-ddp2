@@ -4,18 +4,39 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import assignments.assignment2.Restaurant;
-import assignments.assignment2.User;
-import assignments.assignment3.LoginManager
 import assignments.assignment3.payment.CreditCardPayment;
 import assignments.assignment3.payment.DebitPayment;
-import assignments.assignment3.systemCLI.AdminSystemCLI;
-import assignments.assignment3.systemCLI.CustomerSystemCLI;
 
 public class MainMenu {
     private final Scanner input;
     private final LoginManager loginManager;
     private static ArrayList<Restaurant> restoList;
     private static ArrayList<User> userList;
+    private static User userLoggedIn;
+
+    public static ArrayList<Restaurant> getRestoList() {
+        return restoList;
+    }
+
+    public static ArrayList<User> getUserList() {
+        return userList;
+    }
+
+    public static User getUserLoggedIn() {
+        return userLoggedIn;
+    }
+
+    public static void setRestoList(ArrayList<Restaurant> restoList) {
+        MainMenu.restoList = restoList;
+    }
+
+    public static void setUserList(ArrayList<User> userList) {
+        MainMenu.userList = userList;
+    }
+
+    public static void setUserLoggedIn(User userLoggedIn) {
+        MainMenu.userLoggedIn = userLoggedIn;
+    }
 
     public MainMenu(Scanner in, LoginManager loginManager) {
         this.input = in;
@@ -23,11 +44,14 @@ public class MainMenu {
     }
 
     public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu(new Scanner(System.in), new LoginManager(new AdminSystemCLI(), new CustomerSystemCLI()));
+        Scanner scanner = new Scanner (System.in);
+        LoginManager loginManager = new LoginManager(scanner);
+        MainMenu mainMenu = new MainMenu(scanner, loginManager);
         mainMenu.run();
     }
 
     public void run(){
+        initUser();
         printHeader();
         boolean exit = false;
         while (!exit) {
@@ -40,22 +64,34 @@ public class MainMenu {
                 default -> System.out.println("Pilihan tidak valid, silakan coba lagi.");
             }
         }
-
         input.close();
     }
 
     private void login(){
         System.out.println("\nSilakan Login:");
-        System.out.print("Nama: ");
-        String nama = input.nextLine();
-        System.out.print("Nomor Telepon: ");
-        String noTelp = input.nextLine();
-
         // TODO: Validasi input login
+        boolean isLoggedIn = true;
+        while(isLoggedIn){
+            System.out.print("Nama: ");
+            String nama = input.nextLine();
+            System.out.print("Nomor Telepon: ");
+            String noTelp = input.nextLine();
+            userLoggedIn = getUser(nama, noTelp);
+            if(userLoggedIn != null){
+                System.out.println("Selamat Datang " + userLoggedIn.getNama() + "!");
+                loginManager.getSystem(userLoggedIn.role).run();
+                isLoggedIn = false;
+            }
+        }
+    }
 
-        User userLoggedIn; // TODO: lengkapi
-
-        loginManager.getSystem(userLoggedIn.role);
+    public static User getUser(String nama, String nomorTelepon){
+        for(User user: userList){
+            if(user.getNama().equals(nama.trim()) && user.getNomorTelepon().equals(nomorTelepon.trim())){
+                return user;
+            }
+        }
+        return null;
     }
 
     private static void printHeader(){
@@ -69,6 +105,7 @@ public class MainMenu {
     }
 
     private static void startMenu(){
+        System.out.println();
         System.out.println("Selamat datang di DepeFood!");
         System.out.println("--------------------------------------------");
         System.out.println("Pilih menu:");
@@ -80,6 +117,7 @@ public class MainMenu {
 
     public static void initUser(){
         userList = new ArrayList<User>();
+        restoList = new ArrayList<Restaurant>();
 
         //TODO: Adjust constructor dan atribut pada class User di Assignment 2
         userList.add(new User("Thomas N", "9928765403", "thomas.n@gmail.com", "P", "Customer", new DebitPayment(), 500000));

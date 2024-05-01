@@ -1,4 +1,7 @@
-package assignments.assignment2;
+package assignments.assignment3;
+
+import assignments.assignment2.Order;
+import assignments.assignment3.payment.DepeFoodPaymentSystem;
 
 import java.util.ArrayList;
 
@@ -11,13 +14,16 @@ public class User {
     private ArrayList<Order> orderHistory;
     public String role;
     private long saldo;
+    private DepeFoodPaymentSystem payment;
 
-    public User(String nama, String nomorTelepon, String email, String lokasi, String role, long saldo){
+    public User(String nama, String nomorTelepon, String email, String lokasi, String role, DepeFoodPaymentSystem payment, long saldo){
         this.nama = nama;
         this.nomorTelepon = nomorTelepon;
         this.email = email;
         this.lokasi = lokasi;
         this.role = role;
+        this.payment = payment;
+        this.saldo = saldo;
         orderHistory = new ArrayList<>();
     }
 
@@ -27,14 +33,22 @@ public class User {
     public String getNama() {
         return nama;
     }
+    public void setSaldo(long saldo) {
+        this.saldo = saldo;
+    }
+
     public String getLokasi() {
         return lokasi;
     }
-    public long getSaldo(){
-        return saldo;
-    }
     public String getNomorTelepon() {
         return nomorTelepon;
+    }
+    public DepeFoodPaymentSystem getPayment() {
+        return payment;
+    }
+
+    public long getSaldo(){
+        return saldo;
     }
     public void addOrderHistory(Order order){
         orderHistory.add(order);
@@ -42,6 +56,10 @@ public class User {
     public ArrayList<Order> getOrderHistory() {
         return orderHistory;
     }
+    public void setOrderHistory(ArrayList<Order> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+
     public boolean isOrderBelongsToUser(String orderId) {
         for (Order order : orderHistory) {
             if (order.getOrderId().equals(orderId)) {
@@ -50,10 +68,4 @@ public class User {
         }
         return false;
     }
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return String.format("User dengan nama %s dan nomor telepon %s", nama, nomorTelepon);
-    }
-
 }
