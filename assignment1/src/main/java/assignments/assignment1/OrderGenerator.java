@@ -37,7 +37,7 @@ public class OrderGenerator {
      * 
      * @return String Order ID dengan format sesuai pada dokumen soal
      */
-    public static String generateOrderID(String namaRestoran, String tanggalOrder, String noTelepon) {
+    public static String generateOrderID(String namaRestoran, String tanggalOrder, String noTelepon) { // pass by value (parameter input)
 
         String replacedNamaRestoran = namaRestoran.toUpperCase().replaceAll("\\s", ""); // Biar uppercase + ga ada spasi ga jelas yang bisa salah ID
         String namaRestoranID = replacedNamaRestoran.substring(0, 4); // first 4 digit ID pakai nama restoran (4 digit awal)
@@ -55,7 +55,7 @@ public class OrderGenerator {
         if (Integer.toString(moduloSumOfNoTelepon).length() < 2){
             noTeleponID = "0" + Integer.toString(moduloSumOfNoTelepon);     // jika hasil modulo hanya 1 digit, tambah 0 di depan
         } else {
-            noTeleponID = Integer.toString(moduloSumOfNoTelepon);
+            noTeleponID = Integer.toString(moduloSumOfNoTelepon); 
         }
 
         String tempID = namaRestoranID + tanggalOrderID + noTeleponID;  // ID sementara 
