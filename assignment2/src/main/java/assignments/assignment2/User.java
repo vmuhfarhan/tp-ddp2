@@ -12,7 +12,7 @@ public class User {
     public String role;
     private long saldo;
 
-    public User(String nama, String nomorTelepon, String email, String lokasi, String role, long saldo){
+    public User(String nama, String nomorTelepon, String email, String lokasi, String role){
         this.nama = nama;
         this.nomorTelepon = nomorTelepon;
         this.email = email;

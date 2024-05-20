@@ -1,31 +1,18 @@
 package assignments.assignment3.payment;
 
 public class DebitPayment implements DepeFoodPaymentSystem {
-    //TODO implementasikan class di sini
-    // Anda dibebaskan untuk membuat method yang diperlukan
-    private static final double MINIMUM_TOTAL_PRICE = 50000;
-    private long saldo;
+    private static final double MINIMUM_PAYMENT = 50000;
 
-    public DebitPayment(long saldo) {
-        this.saldo = saldo;
-    }
-
-    public DebitPayment() {
-        //TODO Auto-generated constructor stub
-    }
-
-    public long processPayment(long amount) {
-        if (amount < MINIMUM_TOTAL_PRICE) {
-            System.out.println("Jumlah pesanan < Rp 50000, mohon menggunakan metode pembayaran yang lain\n");
-            return 0;
-        }
-        if (amount > saldo) {
-            System.out.println("Saldo tidak mencukupi, mohon menggunakan metode pembayaran yang lain\n");
-            return 0;
+    @Override
+    public long processPayment(long saldo, long amount) throws Exception {
+        if (amount < MINIMUM_PAYMENT) {
+            throw new Exception("Jumlah pesanan < 50000 mohon menggunakan metode pembayaran yang lain");
         }
 
-        saldo -= amount;
-        return saldo;
+        if (saldo < amount) {
+            throw new Exception("Saldo tidak mencukupi mohon menggunakan metode pembayaran yang lain");
+        }
+
+        return amount;
     }
 }
-

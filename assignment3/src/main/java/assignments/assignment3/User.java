@@ -1,28 +1,30 @@
 package assignments.assignment3;
 
-import assignments.assignment2.Order;
+import java.util.ArrayList;
+import java.util.List;
+
 import assignments.assignment3.payment.DepeFoodPaymentSystem;
 
-import java.util.ArrayList;
-
 public class User {
-    
+
     private String nama;
     private String nomorTelepon;
     private String email;
+    public final String role;
     private String lokasi;
-    private ArrayList<Order> orderHistory;
-    public String role;
-    private long saldo;
-    private DepeFoodPaymentSystem payment;
 
-    public User(String nama, String nomorTelepon, String email, String lokasi, String role, DepeFoodPaymentSystem payment, long saldo){
+    private DepeFoodPaymentSystem paymentSystem;
+    private long saldo;
+    private ArrayList<Order> orderHistory;
+
+    public User(String nama, String nomorTelepon, String email, String lokasi, String role,
+            DepeFoodPaymentSystem paymentSystem, long saldo) {
         this.nama = nama;
         this.nomorTelepon = nomorTelepon;
         this.email = email;
         this.lokasi = lokasi;
         this.role = role;
-        this.payment = payment;
+        this.paymentSystem = paymentSystem;
         this.saldo = saldo;
         orderHistory = new ArrayList<>();
     }
@@ -30,34 +32,37 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public String getNama() {
         return nama;
-    }
-    public void setSaldo(long saldo) {
-        this.saldo = saldo;
     }
 
     public String getLokasi() {
         return lokasi;
     }
+
     public String getNomorTelepon() {
         return nomorTelepon;
     }
-    public DepeFoodPaymentSystem getPayment() {
-        return payment;
-    }
 
-    public long getSaldo(){
+    public long getSaldo() {
         return saldo;
     }
-    public void addOrderHistory(Order order){
+
+    public String getRole() {
+        return role;
+    }
+
+    public DepeFoodPaymentSystem getPaymentSystem() {
+        return paymentSystem;
+    }
+
+    public void addOrderHistory(Order order) {
         orderHistory.add(order);
     }
-    public ArrayList<Order> getOrderHistory() {
+
+    public List<Order> getOrderHistory() {
         return orderHistory;
-    }
-    public void setOrderHistory(ArrayList<Order> orderHistory) {
-        this.orderHistory = orderHistory;
     }
 
     public boolean isOrderBelongsToUser(String orderId) {
@@ -68,4 +73,14 @@ public class User {
         }
         return false;
     }
+
+    public void setSaldo(long saldo) {
+        this.saldo = saldo;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User dengan nama %s dan nomor telepon %s", nama, nomorTelepon);
+    }
+
 }

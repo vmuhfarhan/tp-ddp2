@@ -41,7 +41,7 @@ public class OrderGenerator {
     /*
      * Method ini digunakan untuk membuat ID
      * dari nama restoran, tanggal order, dan nomor telepon
-     * 
+     *
      * @return String Order ID dengan format sesuai pada dokumen soal
      */
     public static String generateOrderID(String namaRestoran, String tanggalOrder, String noTelepon) {
@@ -51,6 +51,7 @@ public class OrderGenerator {
         String phoneNumberChecksum = getPhoneNumberChecksum(noTelepon);
 
         String id = restaurantCode + formattedDate + phoneNumberChecksum;
+        id = id.toUpperCase();
         String checksum = calculateChecksum(id);
 
         return id + checksum;
@@ -59,7 +60,7 @@ public class OrderGenerator {
     /*
      * Method ini digunakan untuk membuat bill
      * dari order id dan lokasi
-     * 
+     *
      * @return String Bill dengan format sesuai di bawah:
      * Bill:
      * Order ID: [Order ID]
@@ -126,7 +127,7 @@ public class OrderGenerator {
     }
 
     public static String getRestaurantCode(String restaurantName) {
-        String[] words = restaurantName.toUpperCase().split(" ");
+        String[] words = restaurantName.split(" ");
 
         StringBuilder code = new StringBuilder();
 

@@ -1,8 +1,5 @@
 package assignments.assignment2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Order {
     
     private String OrderId;
